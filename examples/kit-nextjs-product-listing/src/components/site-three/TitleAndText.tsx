@@ -10,7 +10,6 @@ interface TitleAndTextProps {
 }
 
 export const Default = (props: TitleAndTextProps) => {
-  console.log('TitleAndText props', props);
   return (
     <section className={`py-8 ${props?.params?.styles || ''}`} data-class-change>
       <ContentSdkText tag="h2" className="text-3xl font-bold" field={props.fields?.Title} />
