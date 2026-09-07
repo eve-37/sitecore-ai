@@ -49,6 +49,7 @@ import * as SearchItemCommon from 'src/components/search-experience/search-compo
 import * as SearchInput from 'src/components/search-experience/search-components/SearchInput';
 import * as SearchError from 'src/components/search-experience/search-components/SearchError';
 import * as SearchEmptyResults from 'src/components/search-experience/search-components/SearchEmptyResults';
+import * as Index from 'src/components/search-experience/search-components/SearchItem/index';
 import * as SearchItemTitle from 'src/components/search-experience/search-components/SearchItem/SearchItemTitle';
 import * as SearchItemTags from 'src/components/search-experience/search-components/SearchItem/SearchItemTags';
 import * as SearchItemSummary from 'src/components/search-experience/search-components/SearchItem/SearchItemSummary';
@@ -56,7 +57,6 @@ import * as SearchItemSubTitle from 'src/components/search-experience/search-com
 import * as SearchItemLink from 'src/components/search-experience/search-components/SearchItem/SearchItemLink';
 import * as SearchItemImage from 'src/components/search-experience/search-components/SearchItem/SearchItemImage';
 import * as SearchItemCategory from 'src/components/search-experience/search-components/SearchItem/SearchItemCategory';
-import * as Index from 'src/components/search-experience/search-components/SearchItem/index';
 import * as PromoAnimatedImageRightdev from 'src/components/promo-animated/PromoAnimatedImageRight.dev';
 import * as PromoAnimatedDefaultdev from 'src/components/promo-animated/PromoAnimatedDefault.dev';
 import * as PromoAnimated from 'src/components/promo-animated/PromoAnimated';
@@ -169,6 +169,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['SearchInput', { ...SearchInput }],
   ['SearchError', { ...SearchError }],
   ['SearchEmptyResults', { ...SearchEmptyResults }],
+  ['Index', { ...Index }],
   ['SearchItemTitle', { ...SearchItemTitle }],
   ['SearchItemTags', { ...SearchItemTags }],
   ['SearchItemSummary', { ...SearchItemSummary }],
@@ -176,7 +177,6 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['SearchItemLink', { ...SearchItemLink }],
   ['SearchItemImage', { ...SearchItemImage }],
   ['SearchItemCategory', { ...SearchItemCategory }],
-  ['Index', { ...Index }],
   ['PromoAnimatedImageRight', { ...PromoAnimatedImageRightdev }],
   ['PromoAnimatedDefault', { ...PromoAnimatedDefaultdev }],
   ['PromoAnimated', { ...PromoAnimated }],
