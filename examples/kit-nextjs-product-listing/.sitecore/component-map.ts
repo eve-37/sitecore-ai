@@ -41,6 +41,7 @@ import * as SubmissionForm from 'src/components/submission-form/SubmissionForm';
 import * as StructuredData from 'src/components/structured-data/StructuredData';
 import * as SlideCarouseldev from 'src/components/slide-carousel/SlideCarousel.dev';
 import * as Video from 'src/components/site-three/Video';
+import * as TitleAndText from 'src/components/site-three/TitleAndText';
 import * as TextSlider from 'src/components/site-three/TextSlider';
 import * as SignupBanner from 'src/components/site-three/SignupBanner';
 import * as ProductPageHeader from 'src/components/site-three/ProductPageHeader';
@@ -251,6 +252,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['StructuredData', { ...StructuredData }],
   ['SlideCarousel', { ...SlideCarouseldev }],
   ['Video', { ...Video }],
+  ['TitleAndText', { ...TitleAndText }],
   ['TextSlider', { ...TextSlider, componentType: 'client' }],
   ['SignupBanner', { ...SignupBanner }],
   ['ProductPageHeader', { ...ProductPageHeader, componentType: 'client' }],
