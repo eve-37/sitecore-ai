@@ -231,3 +231,4 @@ In SitecoreAI Deploy Portal → your Environment → **Developer Settings** → 
 ### When do I need to add an editing host manually?
 
 Only if you have **split deployment** enabled. Otherwise, editing hosts are created from `xmcloud.build.json` when the starter is enabled. See [How to Add an Editing Host to XM Cloud](#how-to-add-an-editing-host-to-xm-cloud).
+
