@@ -18,12 +18,12 @@ export const Default = (props: QuoteBlockProps): React.ReactElement => {
     <section className={`container-default component ${grid} ${containerStyles}`.trim()}>
       <div data-class-change className={containerStyles} />
       <blockquote className="component-content">
-        <ContentSdkText tag="p" field={props.fields?.Quote} />
-        <footer>
-          <ContentSdkText tag="cite" field={props.fields?.Attribution} />
-          <ContentSdkText tag="span" field={props.fields?.Role} />
+        <ContentSdkText tag="p" className="text-2xl leading-snug" field={props.fields?.Quote} />
+        <footer className="mt-4 flex flex-col">
+            <ContentSdkText tag="cite" className="not-italic font-semibold" field={props.fields?.Attribution} />
+            <ContentSdkText tag="span" className="text-sm opacity-70" field={props.fields?.Role} />
         </footer>
-      </blockquote>
+        </blockquote>
     </section>
   );
 };
