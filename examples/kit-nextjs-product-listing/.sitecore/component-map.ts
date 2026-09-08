@@ -44,6 +44,7 @@ import * as Video from 'src/components/site-three/Video';
 import * as TitleAndText from 'src/components/site-three/TitleAndText';
 import * as TextSlider from 'src/components/site-three/TextSlider';
 import * as SignupBanner from 'src/components/site-three/SignupBanner';
+import * as QuoteBlock from 'src/components/site-three/QuoteBlock';
 import * as ProductPageHeader from 'src/components/site-three/ProductPageHeader';
 import * as ProductComparison from 'src/components/site-three/ProductComparison';
 import * as PageHeaderST from 'src/components/site-three/PageHeaderST';
@@ -256,6 +257,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['TitleAndText', { ...TitleAndText }],
   ['TextSlider', { ...TextSlider, componentType: 'client' }],
   ['SignupBanner', { ...SignupBanner }],
+  ['QuoteBlock', { ...QuoteBlock }],
   ['ProductPageHeader', { ...ProductPageHeader, componentType: 'client' }],
   ['ProductComparison', { ...ProductComparison, componentType: 'client' }],
   ['PageHeaderST', { ...PageHeaderST }],
