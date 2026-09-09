@@ -58,6 +58,7 @@ import * as HeroST from 'src/components/site-three/HeroST';
 import * as HeaderST from 'src/components/site-three/HeaderST';
 import * as FooterST from 'src/components/site-three/FooterST';
 import * as FeatureBanner from 'src/components/site-three/FeatureBanner';
+import * as ContentDescription from 'src/components/site-three/ContentDescription';
 import * as AccordionBlock from 'src/components/site-three/AccordionBlock';
 import * as SearchBox from 'src/components/site-three/non-sitecore/SearchBox';
 import * as MiniCart from 'src/components/site-three/non-sitecore/MiniCart';
@@ -271,6 +272,7 @@ export const componentMap = new Map<string, NextjsContentSdkComponent>([
   ['HeaderST', { ...HeaderST }],
   ['FooterST', { ...FooterST }],
   ['FeatureBanner', { ...FeatureBanner, componentType: 'client' }],
+  ['ContentDescription', { ...ContentDescription }],
   ['AccordionBlock', { ...AccordionBlock, componentType: 'client' }],
   ['SearchBox', { ...SearchBox, componentType: 'client' }],
   ['MiniCart', { ...MiniCart, componentType: 'client' }],
