@@ -41,14 +41,16 @@ export const Default = (props: ContentDescriptionProps): React.ReactElement => {
       <div data-class-change className={containerStyles}>
         <div className="component-content">
           <ContentSdkText
-            tag="h2"
+            tag="h3"
             className="content-description-heading"
             field={props.fields.Heading}
           />
-          <ContentSdkRichText
-            className="content-description-body"
-            field={props.fields.Description}
-          />
+          <div className="mt-4 flex flex-col">
+            <ContentSdkRichText
+              className="content-description-body"
+              field={props.fields.Description}
+            />
+          </div>
         </div>
       </div>
     </section>
