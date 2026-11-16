@@ -1,3 +1,5 @@
+'use client';
+
 import type { JSX } from 'react';
 import { NoDataFallback } from '@/utils/NoDataFallback';
 import type { EventCardProps } from './event-card.props';
