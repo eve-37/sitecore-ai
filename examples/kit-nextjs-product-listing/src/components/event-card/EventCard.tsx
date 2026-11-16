@@ -6,7 +6,7 @@ import type { EventCardProps } from './event-card.props';
 import { Text, RichText, DateField, Link as ContentSdkLink } from '@sitecore-content-sdk/nextjs';
 import { Button } from '@/components/ui/button';
 
-const SITE_TIME_ZONE = 'Asia/Singapore';
+const SITE_TIME_ZONE = 'UTC';
 const SITE_LOCALE = 'en-SG';
 
 const hasDate = (value?: string): boolean => Boolean(value) && !value!.startsWith('0001-01-01');
