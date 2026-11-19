@@ -8,8 +8,9 @@ import type { PatinaHeroProps } from './patina-hero.props';
 
 // Patina uses Cormorant (headings) and Gill Sans (UI text). No build-time font download:
 // these stacks use the fonts if the site loads them, otherwise elegant system fallbacks.
-const headingFont = "font-['Cormorant_Garamond','Cormorant',Georgia,'Times_New_Roman',serif]";
-const uiFont = "font-['Gill_Sans','Gill_Sans_MT','Cabin',Calibri,sans-serif]";
+const headingFont =
+  "font-[family-name:'Cormorant_Garamond','Cormorant',Georgia,'Times_New_Roman',serif]";
+const uiFont = "font-[family-name:'Gill_Sans','Gill_Sans_MT','Cabin',Calibri,sans-serif]";
 
 const CircleArrowIcon = (): JSX.Element => (
   <svg
