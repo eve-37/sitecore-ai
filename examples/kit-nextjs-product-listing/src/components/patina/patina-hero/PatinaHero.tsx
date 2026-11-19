@@ -1,5 +1,4 @@
 import type { JSX } from 'react';
-import { Cabin, Cormorant_Garamond } from 'next/font/google';
 import { Text } from '@sitecore-content-sdk/nextjs';
 import { cn } from '@/lib/utils';
 import { NoDataFallback } from '@/utils/NoDataFallback';
@@ -7,18 +6,10 @@ import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev';
 import { CompatibleLink } from '@/components/content-sdk/CompatibleLink';
 import type { PatinaHeroProps } from './patina-hero.props';
 
-// Patina uses Cormorant (headings) and Gill Sans (UI text, with Cabin as its web fallback).
-const headingFont = Cormorant_Garamond({
-  subsets: ['latin'],
-  weight: ['300', '400'],
-  display: 'swap',
-});
-
-const uiFont = Cabin({
-  subsets: ['latin'],
-  weight: ['400'],
-  display: 'swap',
-});
+// Patina uses Cormorant (headings) and Gill Sans (UI text). No build-time font download:
+// these stacks use the fonts if the site loads them, otherwise elegant system fallbacks.
+const headingFont = "font-['Cormorant_Garamond','Cormorant',Georgia,'Times_New_Roman',serif]";
+const uiFont = "font-['Gill_Sans','Gill_Sans_MT','Cabin',Calibri,sans-serif]";
 
 const CircleArrowIcon = (): JSX.Element => (
   <svg
@@ -86,7 +77,7 @@ export const Default = (props: PatinaHeroProps): JSX.Element => {
           tag="h1"
           field={heading}
           className={cn(
-            headingFont.className,
+            headingFont,
             'max-w-[12ch] text-balance text-[3.25rem] font-normal uppercase leading-[1.1] tracking-[-0.03em]',
             'sm:text-[4.5rem] lg:text-[6.25rem]',
             'motion-safe:animate-in motion-safe:fade-in motion-safe:duration-1000'
@@ -99,7 +90,7 @@ export const Default = (props: PatinaHeroProps): JSX.Element => {
               field={ctaLink}
               showLinkTextWithChildrenPresent
               className={cn(
-                uiFont.className,
+                uiFont,
                 'group relative inline-flex items-center gap-3 text-[15px] uppercase tracking-[0.15em] text-white',
                 'after:absolute after:-bottom-1 after:left-0 after:h-px after:w-[calc(100%-2rem)] after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100',
                 'focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white'
