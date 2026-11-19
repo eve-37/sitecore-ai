@@ -1,9 +1,16 @@
 import type { JSX } from 'react';
 import NextLink from 'next/link';
 import { NoDataFallback } from '@/utils/NoDataFallback';
+import { Default as ImageWrapper } from '@/components/image/ImageWrapper.dev';
 import type { HeaderNavPage, HeaderNavProps } from './header-nav.props';
 
 /**
+ * HeaderNav
+ *
+ * Datasource: a "HeaderNav" item (Templates/Project/patinahotel/HeaderNav) with
+ *  - Logo      (Image)    -> brand logo, links to the root page
+ *  - Root Page (Droptree) -> the page whose children make up the menu
+ *
  * Variants:
  *  - Default      -> root page link (e.g. "Home") followed by its child pages
  *  - ChildrenOnly -> child pages only
@@ -35,26 +42,51 @@ const HeaderNavBase = ({
   includeRoot: boolean;
 }): JSX.Element => {
   const { fields, params } = props;
-  const root = fields?.data?.datasource;
+  const datasource = fields?.data?.datasource;
 
-  if (!root) {
+  if (!datasource) {
     return <NoDataFallback componentName="HeaderNav" />;
   }
 
-  const children = root.children?.results ?? [];
+  const logo = datasource.logo?.jsonValue;
+  const root = datasource.rootPage?.targetItem ?? null;
+  const children = root?.children?.results ?? [];
+  const homeHref = root?.url?.href || '/';
+  const homeLabel = root ? getLabel(root) : 'Home';
 
   return (
     <nav
-      className={`component header-nav ${params?.styles ?? ''}`.trim()}
+      className={`component header-nav flex flex-wrap items-center gap-4 ${params?.styles ?? ''}`.trim()}
       id={params?.RenderingIdentifier || undefined}
       aria-label="Main"
     >
-      <ul className="header-nav__list m-0 flex list-none flex-wrap items-center gap-2 p-0">
-        {includeRoot && <NavItem page={root} />}
-        {children.map((child) => (
-          <NavItem key={child.id} page={child} />
-        ))}
-      </ul>
+      {/* ImageWrapper renders nothing on the live site when the field is empty,
+          and shows the empty-field placeholder in Page builder. */}
+      {logo && (
+        <NextLink
+          href={homeHref}
+          prefetch={false}
+          className="header-nav__logo inline-flex shrink-0 items-center"
+          aria-label={homeLabel}
+        >
+          <ImageWrapper
+            image={logo}
+            alt={(logo.value?.alt as string) || homeLabel}
+            className="h-10 w-auto object-contain"
+            wrapperClass="h-10"
+            priority
+          />
+        </NextLink>
+      )}
+
+      {root && (
+        <ul className="header-nav__list m-0 flex list-none flex-wrap items-center gap-2 p-0">
+          {includeRoot && <NavItem page={root} />}
+          {children.map((child) => (
+            <NavItem key={child.id} page={child} />
+          ))}
+        </ul>
+      )}
     </nav>
   );
 };

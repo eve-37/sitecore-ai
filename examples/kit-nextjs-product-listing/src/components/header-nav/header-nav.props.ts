@@ -1,31 +1,36 @@
-import { ComponentProps } from '@/lib/component-props';
-import { GqlFieldString } from '@/types/gql.props';
+import type { Field, ImageField } from '@sitecore-content-sdk/nextjs';
+import type { ComponentProps } from '@/lib/component-props';
 
-/**
- * HeaderNav: lists a root page (the rendering data source, e.g. Home) and its child pages.
- * Data comes from the "Component GraphQL Query" on the HeaderNav Json Rendering item.
- */
-export type HeaderNavPage = {
+/** A page as returned by the `NavPage` fragment in the Component GraphQL Query. */
+export interface HeaderNavPage {
   id: string;
   name: string;
   displayName?: string;
-  title?: GqlFieldString | null;
-  navigationTitle?: GqlFieldString | null;
-  url?: { href?: string } | null;
-};
+  title?: { jsonValue?: Field<string> };
+  navigationTitle?: { jsonValue?: Field<string> };
+  url?: { href?: string };
+}
 
-export type HeaderNavRoot = HeaderNavPage & {
-  children?: {
-    results?: HeaderNavPage[];
-  } | null;
-};
+/** The page picked in the datasource's "Root Page" droptree, plus its child pages. */
+export interface HeaderNavRootPage extends HeaderNavPage {
+  children?: { results?: HeaderNavPage[] };
+}
 
-export type HeaderNavFields = {
-  fields?: {
-    data?: {
-      datasource?: HeaderNavRoot | null;
-    };
+/**
+ * Shape of the HeaderNav datasource item
+ * (/sitecore/templates/Project/patinahotel/HeaderNav).
+ */
+export interface HeaderNavDatasource {
+  logo?: { jsonValue?: ImageField };
+  rootPage?: { targetItem?: HeaderNavRootPage | null };
+}
+
+export interface HeaderNavFields {
+  data?: {
+    datasource?: HeaderNavDatasource | null;
   };
-};
+}
 
-export type HeaderNavProps = ComponentProps & HeaderNavFields;
+export type HeaderNavProps = ComponentProps & {
+  fields?: HeaderNavFields;
+};
