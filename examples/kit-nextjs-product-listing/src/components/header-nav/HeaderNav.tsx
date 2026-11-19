@@ -8,12 +8,12 @@ import type { HeaderNavPage, HeaderNavProps } from './header-nav.props';
  * HeaderNav
  *
  * Datasource: a "HeaderNav" item (Templates/Project/patinahotel/HeaderNav) with
- *  - Logo      (Image)    -> brand logo, links to the root page
- *  - Root Page (Droptree) -> the page whose children make up the menu
+ * - Logo (Image) -> brand logo, links to the root page
+ * - Root Page (Droptree) -> the page whose children make up the menu
  *
  * Variants:
- *  - Default      -> root page link (e.g. "Home") followed by its child pages
- *  - ChildrenOnly -> child pages only
+ * - Default -> root page link (e.g. "Home") followed by its child pages
+ * - ChildrenOnly -> child pages only
  */
 
 const getLabel = (page: HeaderNavPage): string =>
@@ -56,7 +56,7 @@ const HeaderNavBase = ({
 
   return (
     <nav
-      className={`component header-nav flex flex-wrap items-center gap-4 ${params?.styles ?? ''}`.trim()}
+      className={`component header-nav mx-auto mt-6 flex w-full flex-wrap items-center justify-center gap-4 ${params?.styles ?? ''}`.trim()}
       id={params?.RenderingIdentifier || undefined}
       aria-label="Main"
     >
@@ -80,7 +80,7 @@ const HeaderNavBase = ({
       )}
 
       {root && (
-        <ul className="header-nav__list m-0 flex list-none flex-wrap items-center gap-2 p-0">
+        <ul className="header-nav__list m-0 flex list-none flex-wrap items-center justify-center gap-2 p-0">
           {includeRoot && <NavItem page={root} />}
           {children.map((child) => (
             <NavItem key={child.id} page={child} />
