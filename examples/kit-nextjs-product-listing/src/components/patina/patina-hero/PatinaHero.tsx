@@ -27,13 +27,20 @@ const CircleArrowIcon = (): JSX.Element => (
   </svg>
 );
 
+type Variant = 'hero' | 'banner';
+
 /**
- * PatinaHero
- * Full-viewport static image hero with a centred serif heading and an
- * understated uppercase CTA, modelled on the patinahotels.com homepage hero
- * (without the video carousel).
+ * Shared full-bleed image + centred text layout.
+ * - hero:   page-top hero (h1, large uppercase heading, circled-arrow CTA, eager image)
+ * - banner: mid-page banner (label, h2 sentence-case heading, plain CTA, lazy image)
  */
-export const Default = (props: PatinaHeroProps): JSX.Element => {
+const PatinaHeroBase = ({
+  props,
+  variant,
+}: {
+  props: PatinaHeroProps;
+  variant: Variant;
+}): JSX.Element => {
   const { fields, params, page } = props;
   const isEditing = page?.mode?.isEditing ?? false;
 
@@ -41,12 +48,15 @@ export const Default = (props: PatinaHeroProps): JSX.Element => {
     return <NoDataFallback componentName="PatinaHero" />;
   }
 
-  const { heading, backgroundImage, ctaLink } = fields;
+  const { label, heading, backgroundImage, ctaLink } = fields;
+  const isHero = variant === 'hero';
   const hasCta = Boolean(ctaLink) && (isEditing || Boolean(ctaLink?.value?.href));
+  const showLabel = !isHero && Boolean(label) && (isEditing || Boolean(label?.value));
 
   return (
     <section
       data-component="PatinaHero"
+      data-variant={variant}
       id={params?.RenderingIdentifier}
       className={cn(
         'component patina-hero relative isolate flex w-full items-center justify-center overflow-hidden bg-neutral-900 text-white',
@@ -60,44 +70,68 @@ export const Default = (props: PatinaHeroProps): JSX.Element => {
         wrapperClass="absolute inset-0 -z-20"
         className="h-full w-full object-cover"
         sizes="100vw"
-        priority={true}
-        loading="eager"
-        fetchPriority="high"
+        priority={isHero}
+        loading={isHero ? 'eager' : 'lazy'}
+        fetchPriority={isHero ? 'high' : 'auto'}
       />
 
       {/* Subtle scrim so white text stays legible on bright photography */}
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 -z-10 bg-black/10" />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-black/35 to-transparent"
+        className={cn(
+          'pointer-events-none absolute inset-0 -z-10',
+          isHero ? 'bg-black/10' : 'bg-black/20'
+        )}
       />
+      {isHero && (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 -z-10 h-40 bg-gradient-to-b from-black/35 to-transparent"
+        />
+      )}
 
       {/* Content */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1240px] flex-col items-center px-6 text-center">
+        {showLabel && label && (
+          <Text tag="p" field={label} className={cn(uiFont, 'mb-4 text-base leading-[1.3]')} />
+        )}
+
         <Text
-          tag="h1"
+          tag={isHero ? 'h1' : 'h2'}
           field={heading}
           className={cn(
             headingFont,
-            'max-w-[12ch] text-balance text-[3.25rem] font-normal uppercase leading-[1.1] tracking-[-0.03em]',
-            'sm:text-[4.5rem] lg:text-[6.25rem]',
-            'motion-safe:animate-in motion-safe:fade-in motion-safe:duration-1000'
+            isHero
+              ? cn(
+                  'max-w-[12ch] text-balance text-[3.25rem] font-normal uppercase leading-[1.1] tracking-[-0.03em]',
+                  'sm:text-[4.5rem] lg:text-[6.25rem]',
+                  'motion-safe:animate-in motion-safe:fade-in motion-safe:duration-1000'
+                )
+              : 'max-w-[640px] text-balance text-[2.4rem] font-normal normal-case leading-[1.15] tracking-[-0.03em] lg:text-[3.25rem] lg:leading-[1.1]'
           )}
         />
 
         {hasCta && ctaLink && (
-          <div className="mt-8 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-1000 motion-safe:delay-300 motion-safe:fill-mode-both">
+          <div
+            className={cn(
+              isHero
+                ? 'mt-8 motion-safe:animate-in motion-safe:fade-in motion-safe:duration-1000 motion-safe:delay-300 motion-safe:fill-mode-both'
+                : 'mt-10'
+            )}
+          >
             <CompatibleLink
               field={ctaLink}
               showLinkTextWithChildrenPresent
               className={cn(
                 uiFont,
-                'group relative inline-flex items-center gap-3 text-[15px] uppercase tracking-[0.15em] text-white',
-                'after:absolute after:-bottom-1 after:left-0 after:h-px after:w-[calc(100%-2rem)] after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100',
+                'group relative inline-flex items-center gap-3 uppercase text-white',
+                isHero ? 'text-[15px] tracking-[0.15em]' : 'text-[0.9rem] tracking-[0.15em]',
+                'after:absolute after:-bottom-1 after:left-0 after:h-px after:origin-left after:scale-x-0 after:bg-current after:transition-transform after:duration-300 hover:after:scale-x-100',
+                isHero ? 'after:w-[calc(100%-2rem)]' : 'after:w-full',
                 'focus-visible:outline focus-visible:outline-1 focus-visible:outline-offset-4 focus-visible:outline-white'
               )}
             >
-              <CircleArrowIcon />
+              {isHero ? <CircleArrowIcon /> : null}
             </CompatibleLink>
           </div>
         )}
@@ -105,3 +139,21 @@ export const Default = (props: PatinaHeroProps): JSX.Element => {
     </section>
   );
 };
+
+/**
+ * PatinaHero
+ * Default: full-viewport static image hero with a large centred serif heading and an
+ * understated uppercase CTA, modelled on the patinahotels.com homepage hero
+ * (without the video carousel).
+ */
+export const Default = (props: PatinaHeroProps): JSX.Element => (
+  <PatinaHeroBase props={props} variant="hero" />
+);
+
+/**
+ * Banner: mid-page full-bleed image section with a small label, a sentence-case
+ * serif heading and a plain uppercase link (e.g. "Lifestyle Programming").
+ */
+export const Banner = (props: PatinaHeroProps): JSX.Element => (
+  <PatinaHeroBase props={props} variant="banner" />
+);
